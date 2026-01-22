@@ -1,0 +1,28 @@
+<h1>Tasks Index Page</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <td>
+          <%= link_to 'Show', task_path(task), id: 'show-task' %> |
+          <%= link_to 'Edit', edit_task_path(task), id: 'edit-task' %> |
+          <%= link_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, id: 'destroy-task' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Task', new_task_path, id: 'new-task' %>
