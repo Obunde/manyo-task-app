@@ -1,2 +1,8 @@
 <h1>Edit Task Page</h1>
-<%= render 'form' %>
+
+<%= render 'form',
+           task: @task,
+           submit_text: 'Update Task',
+           submit_id: 'update-task' %>
+
+<%= link_to 'Back', tasks_path, id: 'back' %>

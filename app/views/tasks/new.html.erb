@@ -1,2 +1,8 @@
 <h1>New Task Page</h1>
-<%= render 'form' %>
+
+<%= render 'form',
+           task: @task,
+           submit_text: 'Create Task',
+           submit_id: 'create-task' %>
+
+<%= link_to 'Back', tasks_path, id: 'back' %>
