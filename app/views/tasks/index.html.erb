@@ -1,6 +1,14 @@
 <h1>Tasks Index Page</h1>
 
 <table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Created_at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
@@ -15,7 +23,4 @@
       </tr>
     <% end %>
   </tbody>
-
 </table>
-
-
