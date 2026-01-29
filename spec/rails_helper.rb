@@ -60,4 +60,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.before(:each, type: :system) do
+    driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400] do |options|
+      options.add_argument('no-sandbox')
+    end
+  end
+  config.include FactoryBot::Syntax::Methods
 end

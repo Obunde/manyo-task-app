@@ -1,46 +1,47 @@
 require 'rails_helper'
 
-RSpec.describe 'Task management', type: :system do
-  before do
-    driven_by(:rack_test)
-  end
+RSpec.describe 'Task management function', type: :system do
 
-  describe 'Task creation' do
-    it 'displays the created task' do
-      visit new_task_path
+  describe 'Registration function' do
+    context 'When registering a task' do
+      it 'The registered task is displayed' do
+        visit new_task_path
 
-      fill_in 'Title', with: 'My First Task'
-      fill_in 'Content', with: 'This is a test task'
-      click_button 'Create Task'
+        fill_in 'Title', with: 'Document preparation'
+        fill_in 'Content', with: 'Create a proposal.'
 
-      expect(page).to have_content 'Task was successfully created.'
-      expect(page).to have_content 'My First Task'
-      expect(page).to have_content 'This is a test task'
+        click_button 'Create Task'
+
+        expect(page).to have_content 'Task was successfully created.'
+        expect(page).to have_content 'Document preparation'
+        # expect(page).to have_content 'Wrong Text.' # This line is intended to fail
+        expect(page).to have_content 'Create a proposal.'
+      end
     end
   end
 
-  describe 'Task list' do
-    it 'shows registered tasks' do
-      task = FactoryBot.create(:task, title: 'Listed Task')
+  describe 'List display function' do
+    context 'When transitioning to the list screen' do
+      it 'A list of registered tasks is displayed' do
+        create(:task)
 
-      visit tasks_path
+        visit tasks_path
 
-      expect(page).to have_content 'Listed Task'
+        expect(page).to have_content 'Document preparation'
+      end
     end
   end
 
-  describe 'Task detail' do
-    it 'shows correct task details' do
-      task = FactoryBot.create(
-        :task,
-        title: 'Detail Task',
-        content: 'Detail Content'
-      )
+  describe 'Detailed display function' do
+    context 'When transitioned to any task details screen' do
+      it 'The content of the task is displayed' do
+        task = create(:task)
 
-      visit task_path(task)
+        visit task_path(task)
 
-      expect(page).to have_content 'Detail Task'
-      expect(page).to have_content 'Detail Content'
+        expect(page).to have_content task.title
+        expect(page).to have_content task.content
+      end
     end
   end
 end
