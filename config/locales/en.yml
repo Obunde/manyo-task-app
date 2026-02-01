@@ -30,4 +30,37 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  en:
+  common:
+    back: "Back"
+    edit: "Edit"
+    delete: "Delete"
+    confirm_delete: "Are you sure?"
+
+  tasks:
+    index:
+      title: "Tasks"
+      new: "New Task"
+      no_tasks: "No tasks found"
+
+    new:
+      title: "New Task"
+
+    edit:
+      title: "Edit Task"
+
+    show:
+      title: "Task Details"
+
+    form:
+      title: "Title"
+      content: "Content"
+      created_at: "Created At"
+      status: "Status"
+      submit: "Save"
+
+    notice:
+      created: "Task was successfully created."
+      updated: "Task was successfully updated."
+      destroyed: "Task was successfully deleted."
+

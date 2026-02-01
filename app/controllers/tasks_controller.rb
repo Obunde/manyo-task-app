@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all.order(created_at: :desc).page(params[:page])
   end
 
   # GET /tasks/new
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: 'Task was successfully created.'
+      redirect_to @task, notice: t("tasks.notice.created")
     else
       render :new
     end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/:id
   def update
     if @task.update(task_params)
-      redirect_to @task, notice: 'Task was successfully updated.'
+      redirect_to @task, notice: t("tasks.notice.updated")
     else
       render :edit
     end
@@ -41,7 +41,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/:id
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: 'Task was successfully destroyed.'
+    redirect_to tasks_path, notice: t("tasks.notice.destroyed")
   end
 
   private
