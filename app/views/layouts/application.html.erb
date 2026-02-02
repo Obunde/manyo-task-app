@@ -11,8 +11,8 @@
 
   <body>
     <nav>
-      <%= link_to t('tasks.index.title'), tasks_path, id: 'tasks-index' %>
-      <%= link_to t('tasks.index.new'), new_task_path, id: 'new-task' %>
+      <%= link_to t('global.task_list'), tasks_path, id: 'tasks-index' %>
+      <%= link_to t('global.new_task'), new_task_path, id: 'new-task' %>
     </nav>
 
     <% if notice %>

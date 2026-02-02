@@ -1,14 +1,12 @@
 <h1><%= t('tasks.index.title') %></h1>
 
-<%= link_to t('tasks.index.new'), new_task_path, id: 'new-task' %>
-
 <table>
   <thead>
     <tr>
       <th><%= t('tasks.form.title') %></th>
-      <th><%= t('tasks.form.content') %></th>
+      <th><%= t('tasks.form.contents') %></th>
       <th><%= t('tasks.form.created_at') %></th>
-      <th>Actions</th>
+      <th><%= t('common.actions') %></th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +16,7 @@
         <td class="task-content"><%= task.content %></td>
         <td class="task-created-at"><%= task.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         <td>
-          <%= link_to 'Show', task_path(task), class: 'show-task' %> |
+          <%= link_to t('common.show'), task_path(task), class: 'show-task' %> |
           <%= link_to t('common.edit'), edit_task_path(task), class: 'edit-task' %> |
           <%= link_to t('common.delete'), task_path(task), method: :delete, data: { confirm: t('common.confirm_delete') }, class: 'destroy-task' %>
         </td>
