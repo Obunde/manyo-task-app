@@ -1,4 +1,4 @@
-<h1>New Task Page</h1>
+<h1><%= t('tasks.new.title') %></h1>
 
 <% if @task.errors.any? %>
   <div id="error_explanation">
@@ -12,7 +12,7 @@
 
 <%= render 'form',
            task: @task,
-           submit_text: 'Create Task',
+           submit_text: t('tasks.new.submit'),
            submit_id: 'create-task' %>
 
-<%= link_to 'Back', tasks_path, id: 'back' %>
+<%= link_to t('common.back'), tasks_path, id: 'back' %>

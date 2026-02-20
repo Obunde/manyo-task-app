@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Create 25 sample tasks for testing pagination
+50.times do |i|
+  Task.create(
+    title: "Task #{i + 1}",
+    content: "This is the content for task #{i + 1}. Lorem ipsum dolor sit amet."
+  )
+end
+
+puts "Created 50 sample tasks!"
