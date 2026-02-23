@@ -3,30 +3,15 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    # 1. Start with a base scope (do not use .page yet)
-    @tasks = Task.all
-
-    # 2. Handle Sorting (Chain these to the base scope)
-    if params[:sort_deadline_on]
-      @tasks = @tasks.sort_by_deadline
-    elsif params[:sort_priority]
-      @tasks = @tasks.sort_by_priority
-    else
-      @tasks = @tasks.recent
-    end
-
-    # 3. Handle Filtering (Chain these as well)
-    if params[:search].present?
-      @tasks = @tasks.search_title(params[:search][:title]) if params[:search][:title].present?
-      @tasks = @tasks.search_status(params[:search][:status]) if params[:search][:status].present?
-    end
-
-    # 4. Final step: Paginate the fully built query
-    @tasks = @tasks.page(params[:page]).per(10)
+  # Chain the two model class methods directly
+    @tasks = Task.apply_filtering(params)
+                .apply_sorting(params)
+                .page(params[:page])
+                .per(10)
   end
 
   # GET /tasks/new
-  def new
+  def newrails generate migration AddIndexToTasksStatus
     @task = Task.new
   end
 
