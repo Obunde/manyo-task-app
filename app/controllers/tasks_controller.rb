@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   end
 
   # GET /tasks/new
-  def newrails generate migration AddIndexToTasksStatus
+  def new
     @task = Task.new
   end
 
