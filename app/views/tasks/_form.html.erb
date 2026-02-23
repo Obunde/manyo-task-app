@@ -16,17 +16,12 @@
 
    <div>
     <%= form.label :priority, t('tasks.form.priority') %>
-    <%= form.select :priority, options_for_select(Task.priorities.map { |k, v| [t("tasks.priority.#{k}"), v] }, task.priority) %>
+    <%= form.select :priority, options_for_select(Task.priorities.keys.map { |key| [t("tasks.priority.#{key}"), key] }, task.priority) %>
   </div>
 
    <div>
     <%= form.label :status, t('tasks.form.status') %>
-    <%= form.select :status, options_for_select(Task.statuses.map { |k, v| [t("tasks.status.#{k}"), v] }, task.status) %>
-  </div>
-
-   <div>
-    <%= form.label :content, t('tasks.form.contents') %>
-    <%= form.text_area :content %>
+    <%= form.select :status, options_for_select(Task.statuses.keys.map { |key| [t("tasks.status.#{key}"), key] }, task.status) %>
   </div>
 
   <div>

@@ -23,6 +23,15 @@ en:
         priority: "Priority"
         status: "Status"
 
+      status:
+        not_started: "Not started"
+        in_progress: "In progress"
+        completed: "Completed"
+
+      priority:
+        low: "Low"
+        medium: "Medium"
+        high: "High"
 
     new:
       title: "Task registration page"
@@ -42,6 +51,16 @@ en:
       deadline: "Expiration date"
       priority: "Priority"
       status: "Status"
+
+    status:
+      not_started: "Not started"
+      in_progress: "In progress"
+      completed: "Completed"
+
+    priority:
+      low: "Low"
+      medium: "Medium"
+      high: "High"
 
     notice:
       created: "I have registered a task"

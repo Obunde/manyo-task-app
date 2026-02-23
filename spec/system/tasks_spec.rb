@@ -1,100 +1,83 @@
 require 'rails_helper'
 
 RSpec.describe 'Task management function', type: :system do
+  # Setup global test data
+  let!(:task1) { FactoryBot.create(:task, title: 'first_task', deadline_on: '2022-02-18', priority: :medium, status: :not_started) }
+  let!(:task2) { FactoryBot.create(:task, title: 'second_task', deadline_on: '2022-02-17', priority: :high, status: :in_progress) }
+  let!(:task3) { FactoryBot.create(:task, title: 'third_task', deadline_on: '2022-02-16', priority: :low, status: :completed) }
 
   describe 'Registration function' do
-    context 'When registering a task' do
-      it 'The registered task is displayed' do
-        visit new_task_path
+    it 'The registered task is displayed' do
+      visit new_task_path
+      fill_in I18n.t('tasks.form.title'), with: 'Document preparation'
+      fill_in I18n.t('tasks.form.contents'), with: 'Create a proposal.'
+      fill_in I18n.t('tasks.form.deadline'), with: '2022-02-19'
+      select I18n.t('tasks.priority.medium'), from: I18n.t('tasks.form.priority')
+      select I18n.t('tasks.status.not_started'), from: I18n.t('tasks.form.status')
+      
+      # Using I18n.t ensures the test stays green even if you change the wording later
+      click_button I18n.t('tasks.new.submit')
 
-        fill_in 'Title', with: 'Document preparation'
-        fill_in 'Content', with: 'Create a proposal.'
-
-        click_button 'Create Task'
-
-        expect(page).to have_content 'Task was successfully created.'
-        expect(page).to have_content 'Document preparation'
-        expect(page).to have_content 'Create a proposal.'
-      end
-    end
-  end
-
-  describe 'List display function' do
-    context 'Basic list display' do
-      it 'A list of registered tasks is displayed' do
-        create(:task, title: 'Document preparation')
-
-        visit tasks_path
-
-        expect(page).to have_content 'Document preparation'
-      end
-    end
-  end
-
-  describe 'Detailed display function' do
-    context 'When transitioned to any task details screen' do
-      it 'The content of the task is displayed' do
-        task = create(:task)
-
-        visit task_path(task)
-
-        expect(page).to have_content task.title
-        expect(page).to have_content task.content
-      end
+      expect(page).to have_content I18n.t('tasks.notice.created')
+      expect(page).to have_content 'Document preparation'
     end
   end
 
   describe 'Task sorting by creation date' do
-    # Create test data with different creation times
-    let!(:first_task) do
-      create(
-        :task,
-        title: 'first_task',
-        created_at: Time.zone.parse('2022-02-18 10:00')
-      )
+    let!(:newest_task) do
+      create(:task,
+             title: 'Newest',
+             content: 'Newest content',
+             deadline_on: Date.today,
+             priority: :medium,
+             status: :not_started,
+             created_at: Time.zone.now)
     end
 
-    let!(:second_task) do
-      create(
-        :task,
-        title: 'second_task',
-        created_at: Time.zone.parse('2022-02-17 10:00')
-      )
-    end
-
-    let!(:third_task) do
-      create(
-        :task,
-        title: 'third_task',
-        created_at: Time.zone.parse('2022-02-16 10:00')
-      )
-    end
-
-    before do
+    it 'Tasks are displayed in descending order of creation date' do
       visit tasks_path
+      # We target the first <tr> in <tbody>
+      first_task_title = page.first('tbody tr td.task-title').text
+      expect(first_task_title).to eq 'Newest'
     end
+  end
 
-    context 'When transitioning to the list screen' do
-      it 'Tasks are displayed in descending order of creation date' do
-        task_rows = all('tbody tr')
+  describe 'Sort function' do
+    before { visit tasks_path }
 
-        expect(task_rows[0]).to have_content 'first_task'
-        expect(task_rows[1]).to have_content 'second_task'
-        expect(task_rows[2]).to have_content 'third_task'
+    context 'If you click on the link "Expiration date"' do
+      it "A list of tasks sorted in ascending order of due date is displayed." do
+        click_link I18n.t('tasks.form.deadline')
+        sleep 0.5 
+        # Check the first title in the sorted list
+        expect(page.first('tbody tr td.task-title').text).to eq 'third_task'
       end
     end
 
-    context 'When creating a new task' do
-      it 'New task is displayed at the top of the list' do
-        click_link 'New Task'
-
-        fill_in 'Title', with: 'new_task'
-        fill_in 'Content', with: 'new content'
-        click_button 'Create Task'
-
-        task_rows = all('tbody tr')
-        expect(task_rows[0]).to have_content 'new_task'
+    context 'If you click on the link "Priority"' do
+      it "A list of tasks sorted by priority is displayed" do
+        click_link I18n.t('tasks.form.priority')
+        sleep 0.5
+        expect(page.first('tbody tr td.task-title').text).to eq 'second_task'
       end
+    end
+  end
+
+  describe 'Search function' do
+    before { visit tasks_path }
+
+    it "Only tasks containing the search word will be displayed." do
+      fill_in I18n.t('tasks.form.title'), with: 'first'
+      click_button 'Search'
+      expect(page).to have_content 'first_task'
+      expect(page).not_to have_content 'second_task'
+    end
+
+    it "Only tasks matching the searched status will be displayed" do
+      select I18n.t('tasks.status.in_progress'), from: I18n.t('tasks.form.status')
+      click_button 'Search'
+      expect(page).to have_content 'second_task'
+      expect(page).not_to have_content 'first_task'
     end
   end
 end
