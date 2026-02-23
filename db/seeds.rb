@@ -10,7 +10,10 @@
 50.times do |i|
   Task.create(
     title: "Task #{i + 1}",
-    content: "This is the content for task #{i + 1}. Lorem ipsum dolor sit amet."
+    content: "This is the content for task #{i + 1}. Lorem ipsum dolor sit amet.",
+    deadline_on: Date.current + i.days,
+    priority: Task.priorities.keys[i % Task.priorities.size],
+    status: Task.statuses.keys[i % Task.statuses.size]
   )
 end
 

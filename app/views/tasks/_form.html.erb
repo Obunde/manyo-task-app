@@ -9,6 +9,26 @@
     <%= form.text_area :content %>
   </div>
 
+   <div>
+    <%= form.label :deadline_on, t('tasks.form.deadline') %>
+    <%= form.date_field :deadline_on %>
+  </div>
+
+   <div>
+    <%= form.label :priority, t('tasks.form.priority') %>
+    <%= form.select :priority, options_for_select(Task.priorities.map { |k, v| [t("tasks.priority.#{k}"), v] }, task.priority) %>
+  </div>
+
+   <div>
+    <%= form.label :status, t('tasks.form.status') %>
+    <%= form.select :status, options_for_select(Task.statuses.map { |k, v| [t("tasks.status.#{k}"), v] }, task.status) %>
+  </div>
+
+   <div>
+    <%= form.label :content, t('tasks.form.contents') %>
+    <%= form.text_area :content %>
+  </div>
+
   <div>
     <%= form.submit submit_text, id: submit_id %>
   </div>

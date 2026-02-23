@@ -1,11 +1,26 @@
 <h1><%= t('tasks.index.title') %></h1>
 
+<div>
+  <%= form_with url: tasks_path, method: :get, scope: :search, local: true do |form| %>
+    <%= form.label :title, "Title" %>
+    <%= form.text_field :title %>
+
+    <%= form.label :status, "Status" %>
+    <%= form.select :status, options_for_select(Task.statuses.map { |k, v| [t("tasks.status.#{k}"), v] }, params.dig(:search, :status)), include_blank: true %>
+
+    <%= form.submit "Search", id: "search_task" %>
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>
       <th><%= t('tasks.form.title') %></th>
       <th><%= t('tasks.form.contents') %></th>
       <th><%= t('tasks.form.created_at') %></th>
+      <th><%= link_to t('tasks.form.deadline'), tasks_path(request.query_parameters.merge(sort_deadline_on: 'true', sort_priority: nil, page: nil)) %></th>
+      <th><%= link_to t('tasks.form.priority'), tasks_path(request.query_parameters.merge(sort_priority: 'true', sort_deadline_on: nil, page: nil)) %></th>
+      <th><%= t('tasks.form.status') %></th>
       <th><%= t('common.actions') %></th>
     </tr>
   </thead>
@@ -15,6 +30,9 @@
         <td class="task-title"><%= task.title %></td>
         <td class="task-content"><%= task.content %></td>
         <td class="task-created-at"><%= task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+        <td class="task-deadline"><%= task.deadline_on.strftime("%Y/%m/%d") %></td>
+        <td class="task-priority"><%= t("tasks.priority.#{task.priority}") %></td>
+        <td class="task-status"><%= t("tasks.status.#{task.status}") %></td>
         <td>
           <%= link_to t('common.show'), task_path(task), class: 'show-task' %> |
           <%= link_to t('common.edit'), edit_task_path(task), class: 'edit-task' %> |

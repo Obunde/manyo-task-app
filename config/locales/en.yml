@@ -19,6 +19,9 @@ en:
         title: "Title"
         content: "Content"
         created_at: "Creation date and time"
+        deadline: "Expiration date"
+        priority: "Priority"
+        status: "Status"
 
 
     new:
@@ -36,7 +39,9 @@ en:
       title: "Title"
       contents: "Contents"
       created_at: "Creation date and time"
-     
+      deadline: "Expiration date"
+      priority: "Priority"
+      status: "Status"
 
     notice:
       created: "I have registered a task"
