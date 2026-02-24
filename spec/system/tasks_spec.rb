@@ -79,5 +79,15 @@ RSpec.describe 'Task management function', type: :system do
       expect(page).to have_content 'second_task'
       expect(page).not_to have_content 'first_task'
     end
+
+    it "Only tasks that contain the search word Title and match the status will be displayed" do
+      fill_in I18n.t('tasks.form.title'), with: "first"
+      select I18n.t('tasks.status.not_started'), from: I18n.t('tasks.form.status')
+      click_button 'Search'
+        
+      expect(page).to have_content "first_task"
+      expect(page).not_to have_content "second_task"
+      expect(page).not_to have_content "third_task"
+    end
   end
 end
