@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
+  before_action :require_login
 
   # GET /tasks
   def index
   # Chain the two model class methods directly
-    @tasks = Task.apply_filtering(params)
+    @tasks = current_user.tasks.apply_filtering(params)
                 .apply_sorting(params)
                 .page(params[:page])
                 .per(10)
@@ -12,12 +13,12 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    @task = current_user.tasks.new
   end
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to @task, notice: t("tasks.notice.created")
     else
@@ -52,7 +53,7 @@ class TasksController < ApplicationController
 
   # Use callbacks to share common setup
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   # Only allow trusted parameters

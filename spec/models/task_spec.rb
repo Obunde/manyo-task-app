@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+ let!(:user) { FactoryBot.create(:user) }
+
+ before do
+  visit new_session_path
+  fill_in I18n.t('sessions.form.email'), with: user.email
+  fill_in I18n.t('sessions.form.password'), with: user.password
+  click_button I18n.t('sessions.new.submit')
+ end
+
   describe 'validations' do
     it 'is invalid without a title' do
       task = Task.new(title: nil, content: 'Some content', deadline_on: Date.today, priority: :medium, status: :not_started)

@@ -11,6 +11,64 @@ en:
     actions: "Actions"
     confirm_delete: "Are you sure you want to delete it?"
 
+  sessions:
+    notice:
+      login_required: "Please log in"
+      logged_in: "Logged in successfully"
+      logged_out: "Logged out successfully"
+
+  users:
+    new:
+      title: "Sign Up"
+      submit: "Create my account"
+    show:
+      title: "%{name}'s Profile"
+      email: "Email"
+      task_count: "Number of Tasks"
+    notice:
+      created: "I have registered an account"
+      updated: "User updated successfully"
+      forbidden: "You do not have permission to access"
+    errors:
+      cannot_delete_last_admin: "Cannot delete because there are no administrators"
+      cannot_demote_last_admin: "Cannot change admin status because there are no administrators"
+
+  admin:
+    users:
+      index:
+        title: "Admin - User Management"
+        new_user: "Create New User"
+        admin_yes: "Yes"
+        admin_no: "No"
+      new:
+        title: "Create User"
+      edit:
+        title: "Edit User"
+      show:
+        title: "User Details"
+      form:
+        create: "Create User"
+        update: "Update User"
+      labels:
+        task_count: "Task Count"
+      notice:
+        created: "User created"
+        updated: "User updated"
+        destroyed: "User deleted"
+        destroy_failed: "Could not delete user"
+        forbidden: "You do not have permission to access"
+
+  activerecord:
+    models:
+      user: "User"
+    attributes:
+      user:
+        name: "Name"
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        admin: "Administrator"
+
   tasks:
     index:
       title: "Task list page"

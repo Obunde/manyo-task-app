@@ -11,8 +11,19 @@
 
   <body>
     <nav>
-      <%= link_to t('global.task_list'), tasks_path, id: 'tasks-index' %>
-      <%= link_to t('global.new_task'), new_task_path, id: 'new-task' %>
+      <% if logged_in? %>
+        <%= link_to t('global.task_list'), tasks_path, id: 'tasks-index' %>
+        <%= link_to t('global.new_task'), new_task_path, id: 'new-task' %>
+        <%= link_to "Profile", user_path(current_user) %> |
+        <%= link_to "Logout", session_path, method: :delete %> 
+        <% if current_user.admin? %>
+            | <%= link_to "Admin", admin_users_path %> 
+        <% end %>
+      <% else %>
+        <%= link_to "Login", new_session_path %> |
+        <%= link_to "Sign Up", new_user_path %>
+      <% end %>
+
     </nav>
 
     <% if notice %>

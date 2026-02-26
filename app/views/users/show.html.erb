@@ -1,0 +1,11 @@
+<h1><%= t("users.show.title", name: @user.name) %></h1>
+
+<p>
+  <strong><%= t("users.show.email") %>:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong><%= t("users.show.task_count") %>:</strong>
+  <%= @user.tasks.count %>
+</p>

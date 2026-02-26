@@ -9,6 +9,8 @@ class Task < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
 
+  belongs_to :user
+
   # Default sort (newest first)
   scope :recent, -> { order(created_at: :desc) }
 
