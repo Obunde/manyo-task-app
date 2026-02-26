@@ -3,7 +3,11 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all.order(created_at: :desc).page(params[:page])
+  # Chain the two model class methods directly
+    @tasks = Task.apply_filtering(params)
+                .apply_sorting(params)
+                .page(params[:page])
+                .per(10)
   end
 
   # GET /tasks/new
@@ -53,6 +57,6 @@ class TasksController < ApplicationController
 
   # Only allow trusted parameters
   def task_params
-    params.require(:task).permit(:title, :content)
+    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
   end
 end

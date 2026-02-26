@@ -19,7 +19,19 @@ en:
         title: "Title"
         content: "Content"
         created_at: "Creation date and time"
+        deadline: "Expiration date"
+        priority: "Priority"
+        status: "Status"
 
+      status:
+        not_started: "Not started"
+        in_progress: "In progress"
+        completed: "Completed"
+
+      priority:
+        low: "Low"
+        medium: "Medium"
+        high: "High"
 
     new:
       title: "Task registration page"
@@ -36,7 +48,19 @@ en:
       title: "Title"
       contents: "Contents"
       created_at: "Creation date and time"
-     
+      deadline: "Expiration date"
+      priority: "Priority"
+      status: "Status"
+
+    status:
+      not_started: "Not started"
+      in_progress: "In progress"
+      completed: "Completed"
+
+    priority:
+      low: "Low"
+      medium: "Medium"
+      high: "High"
 
     notice:
       created: "I have registered a task"
