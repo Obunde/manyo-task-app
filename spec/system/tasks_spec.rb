@@ -1,22 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe 'Task management function', type: :system do
+
+  let!(:user) { FactoryBot.create(:user) } 
   # Setup global test data
-  let!(:task1) { FactoryBot.create(:task, title: 'first_task', deadline_on: '2022-02-18', priority: :medium, status: :not_started) }
-  let!(:task2) { FactoryBot.create(:task, title: 'second_task', deadline_on: '2022-02-17', priority: :high, status: :in_progress) }
-  let!(:task3) { FactoryBot.create(:task, title: 'third_task', deadline_on: '2022-02-16', priority: :low, status: :completed) }
+  let!(:task1) { FactoryBot.create(:task, title: 'first_task', user: user, deadline_on: '2022-02-18', priority: :medium, status: :not_started) }
+  let!(:task2) { FactoryBot.create(:task, title: 'second_task', user: user, deadline_on: '2022-02-17', priority: :high, status: :in_progress) }
+  let!(:task3) { FactoryBot.create(:task, title: 'third_task', user: user, deadline_on: '2022-02-16', priority: :low, status: :completed) }
+
+  before do
+    # Perform login
+    visit new_session_path
+    fill_in 'Email address', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'Login'
+  end
 
   describe 'Registration function' do
     it 'The registered task is displayed' do
       visit new_task_path
-      fill_in I18n.t('tasks.form.title'), with: 'Document preparation'
-      fill_in I18n.t('tasks.form.contents'), with: 'Create a proposal.'
-      fill_in I18n.t('tasks.form.deadline'), with: '2022-02-19'
-      select I18n.t('tasks.priority.medium'), from: I18n.t('tasks.form.priority')
-      select I18n.t('tasks.status.not_started'), from: I18n.t('tasks.form.status')
+      fill_in 'task_title', with: 'Document preparation'
+      fill_in 'task_content', with: 'Create a proposal.'
+      fill_in 'task_deadline_on', with: '2022-02-19'
+      select I18n.t('tasks.priority.medium'), from: 'task_priority'
+      select I18n.t('tasks.status.not_started'), from: 'task_status'
       
       # Using I18n.t ensures the test stays green even if you change the wording later
-      click_button I18n.t('tasks.new.submit')
+      click_button 'create-task'
 
       expect(page).to have_content I18n.t('tasks.notice.created')
       expect(page).to have_content 'Document preparation'
@@ -31,7 +41,8 @@ RSpec.describe 'Task management function', type: :system do
              deadline_on: Date.today,
              priority: :medium,
              status: :not_started,
-             created_at: Time.zone.now)
+             created_at: Time.zone.now,
+             user: user)
     end
 
     it 'Tasks are displayed in descending order of creation date' do

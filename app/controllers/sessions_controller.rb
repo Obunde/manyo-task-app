@@ -13,16 +13,16 @@ class SessionsController < ApplicationController
     # has_secure_password provides the .authenticate method
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      redirect_to tasks_path, notice: "I have logged in"
+      redirect_to tasks_path, notice: t("sessions.notice.logged_in")
     else
-      flash.now[:danger] = "Your email address or password is incorrect"
+      flash.now[:alert] = t("sessions.notice.failed_login")
       render :new
     end
   end
 
   def destroy
     session.delete(:user_id)
-    redirect_to new_session_path, notice: "logged out"
+    redirect_to new_session_path, notice: t("sessions.notice.logged_out")
   end
 
   private

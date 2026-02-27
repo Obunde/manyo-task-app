@@ -1,11 +1,17 @@
 FactoryBot.define do
   factory :user do
-    name { "Test User" }
-    email { "test@example.com" }
-    password_digest { "password123" }
+    name { "General User" }
+    sequence(:email) { |n| "user#{n}@example.com" }
+    password { "password" }
     admin { false }
 
     trait :admin do
+      admin { true }
+    end
+
+    factory :admin_user do
+      name { "Admin User" }
+      email { "admin@example.com" }
       admin { true }
     end
   end

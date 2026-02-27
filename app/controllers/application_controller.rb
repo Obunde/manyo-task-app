@@ -12,7 +12,7 @@ end
 
 def require_login
   unless logged_in?
-    redirect_to new_session_path, alert: "Please log in"
+    redirect_to new_session_path, alert: t("sessions.notice.login_required")
   end
 end
 end

@@ -36,7 +36,7 @@
   </div>
 
   <div>
-    <%= f.submit(@user.persisted? ? t("admin.users.form.update") : t("admin.users.form.create")) %>
+    <%= f.submit(@user.persisted? ? t("admin.users.form.update") : t("admin.users.form.create"), id: @user.persisted? ? "update-user" : "create-user") %>
   </div>
 
 <% end %>

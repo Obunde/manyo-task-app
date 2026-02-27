@@ -35,6 +35,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    # Requirement: On successful delete, go to login page (or signup)
+    # We clear the session so they aren't "logged in" as a deleted user
+    session.delete(:user_id)
+    redirect_to new_session_path, notice: t('users.notice.deleted_account')
+  end
+
   private
 
   def user_params

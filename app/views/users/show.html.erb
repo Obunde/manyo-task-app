@@ -1,11 +1,20 @@
-<h1><%= t("users.show.title", name: @user.name) %></h1>
+<h1><%= t('users.show.title', name: @user.name) %></h1>
 
 <p>
-  <strong><%= t("users.show.email") %>:</strong>
+  <strong><%= t('users.show.name') %>:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= t('users.show.email') %>:</strong>
   <%= @user.email %>
 </p>
 
-<p>
-  <strong><%= t("users.show.task_count") %>:</strong>
-  <%= @user.tasks.count %>
-</p>
+<%# Requirement: Link to edit your account with id="edit-user" %>
+<%= link_to t('common.edit'), edit_user_path(@user), id: "edit-user" %>
+
+<%# Link to delete account %>
+<%= link_to t("common.delete"), user_path(@user),
+                method: :delete,
+                data: { confirm: t("common.confirm_delete") },
+                id: "delete-account" %>

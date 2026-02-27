@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def ensure_admin_exists_if_changing
-    if admin_changed? && User.where(admin: true).count == 1
+    if admin_changed?(from: true, to: false) && User.where(admin: true).count == 1
       errors.add(:base, I18n.t("users.errors.cannot_demote_last_admin"))
       throw(:abort)
     end
