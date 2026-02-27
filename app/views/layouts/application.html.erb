@@ -21,18 +21,16 @@
         <%= link_to t('global.profile'), user_path(current_user), id: 'account-setting' %> |
         <%= link_to t('global.logout'), session_path, method: :delete, id: 'sign-out' %> 
       <% else %>
-        <%= link_to t('global.login'), new_session_path, id: 'sign-in' %> |
-        <%= link_to t('global.sign_up'), new_user_path, id: 'sign-up' %>
+        <%= link_to t('global.sign_up'), new_user_path, id: 'sign-up' %> |
+        <%= link_to t('global.login'), new_session_path, id: 'sign-in' %> 
       <% end %>
 
     </nav>
 
-    <% if notice %>
-      <p><%= notice %></p>
-    <% end %>
+   
 
-    <% if alert %>
-      <p><%= alert %></p>
+    <% flash.each do |key, value| %>
+      <div class="<%= key %>"><%= value %></div>
     <% end %>
 
     <%= yield %>

@@ -15,6 +15,11 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to tasks_path, notice: t("sessions.notice.logged_in")
     else
+      # THIS WILL PRINT TO YOUR TERMINAL DURING THE TEST
+      puts "DEBUG: Login Failed!"
+      puts "User found: #{user.present?}"
+      puts "Password Match: #{user&.authenticate(params[:session][:password]) ? 'YES' : 'NO'}"
+
       flash.now[:alert] = t("sessions.notice.failed_login")
       render :new
     end

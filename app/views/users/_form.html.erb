@@ -2,7 +2,7 @@
   <% if user.errors.any? %>
     <div id="error_explanation">
       <ul>
-        <% user.errors.full_messages.each do |message| %>
+        <% user.errors.values.flatten.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

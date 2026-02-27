@@ -3,7 +3,7 @@
   <% if @user.errors.any? %>
     <div>
       <ul>
-        <% @user.errors.full_messages.each do |msg| %>
+        <% @user.errors.values.flatten.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>

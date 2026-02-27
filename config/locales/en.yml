@@ -58,7 +58,7 @@ en:
   admin:
     users:
       index:
-        title: "User View Page"
+        title: "User List Page"
         new_user: "Register a User"
         admin_yes: "Yes"
         admin_no: "No"
@@ -74,9 +74,9 @@ en:
       labels:
         task_count: "Number of RegisteredTasks"
       notice:
-        created: "User created"
+        created: "You have registered a user"
         updated: "Updated users"
-        deleted: "User deleted"
+        deleted: "You have deleted a user"
         delete_failed: "Could not delete user"
         forbidden: "You do not have permission to access."
 
@@ -98,9 +98,13 @@ en:
               blank: "Please enter your name"
             email:
               blank: "Please enter your e-mail address"
+              taken: "This email address is already in use"
             password:
-              blank: "Please enter the password with at least 6 characters"
+              blank: "Please enter your password"
               too_short: "Please enter the password with at least 6 characters"
+            password_confirmation:
+              blank: "Please enter password (confirmation)"
+              confirmation: "Password (confirmation) and password input do not match"
 
   tasks:
     index:
@@ -141,7 +145,7 @@ en:
       updated: "Tasks have been updated"
       destroyed: "The task has been deleted"
 
-  errors:
-    format: "%{message}"
-    messages:
-      blank: "Please enter %{attribute}"
+  # errors:
+  #   format: "%{message}"
+  #   messages:
+  #     blank: "Please enter %{attribute}"

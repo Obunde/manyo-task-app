@@ -19,6 +19,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    unless @user == current_user
+      flash[:notice] = I18n.t('users.notice.forbidden')
+      redirect_to tasks_path
+    end
   end
 
   # ... edit and update methods ...

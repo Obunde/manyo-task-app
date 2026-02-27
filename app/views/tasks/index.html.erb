@@ -18,8 +18,8 @@
       <th><%= t('tasks.form.title') %></th>
       <th><%= t('tasks.form.contents') %></th>
       <th><%= t('tasks.form.created_at') %></th>
-      <th><%= link_to t('tasks.form.deadline'), tasks_path(request.query_parameters.merge(sort_deadline_on: 'true', sort_priority: nil, page: nil)) %></th>
-      <th><%= link_to t('tasks.form.priority'), tasks_path(request.query_parameters.merge(sort_priority: 'true', sort_deadline_on: nil, page: nil)) %></th>
+      <th><%= link_to t('tasks.form.deadline'), tasks_path(params.permit!.merge(sort_deadline_on: 'true', sort_priority: nil, page: nil)) %></th>
+      <th><%= link_to t('tasks.form.priority'), tasks_path(params.permit!.merge(sort_priority: 'true', sort_deadline_on: nil, page: nil)) %></th>
       <th><%= t('tasks.form.status') %></th>
       <th><%= t('common.actions') %></th>
     </tr>
