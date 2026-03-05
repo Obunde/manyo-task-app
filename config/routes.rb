@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'labels/index'
+  get 'labels/new'
+  get 'labels/create'
+  get 'labels/edit'
+  get 'labels/update'
+  get 'labels/destroy'
   root 'sessions#new'
 
   resources :tasks
