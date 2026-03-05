@@ -1,0 +1,19 @@
+<h1><%= t('sessions.new.title') %></h1>
+
+<%= form_with(scope: :session, url: session_path, local: true) do |form| %>
+
+  <div>
+    <%= form.label :email, t('sessions.new.email') %><br>
+    <%= form.email_field :email, name: 'session[email]' %>
+  </div>
+
+  <div>
+    <%= form.label :password, t('common.password') %><br>
+    <%= form.password_field :password, name: 'session[password]' %>
+  </div>
+
+  <div>
+    <%= form.submit t('sessions.new.submit'), id: 'create-session' %>
+  </div>
+
+<% end %>

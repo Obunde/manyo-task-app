@@ -2,13 +2,13 @@
 
 <div>
   <%= form_with url: tasks_path, method: :get, scope: :search, local: true do |form| %>
-    <%= form.label :title, "Title" %>
+    <%= form.label :title, t('tasks.form.title') %>
     <%= form.text_field :title %>
 
-    <%= form.label :status, "Status" %>
+    <%= form.label :status, t('tasks.form.status') %>
     <%= form.select :status, options_for_select(Task.statuses.keys.map { |key| [t("tasks.status.#{key}"), key] }, params.dig(:search, :status)), include_blank: true %>
 
-    <%= form.submit "Search", id: "search_task" %>
+    <%= form.submit t('common.search'), id: "search_task" %>
   <% end %>
 </div>
 
@@ -18,8 +18,8 @@
       <th><%= t('tasks.form.title') %></th>
       <th><%= t('tasks.form.contents') %></th>
       <th><%= t('tasks.form.created_at') %></th>
-      <th><%= link_to t('tasks.form.deadline'), tasks_path(request.query_parameters.merge(sort_deadline_on: 'true', sort_priority: nil, page: nil)) %></th>
-      <th><%= link_to t('tasks.form.priority'), tasks_path(request.query_parameters.merge(sort_priority: 'true', sort_deadline_on: nil, page: nil)) %></th>
+      <th><%= link_to t('tasks.form.deadline'), tasks_path(params.permit!.merge(sort_deadline_on: 'true', sort_priority: nil, page: nil)) %></th>
+      <th><%= link_to t('tasks.form.priority'), tasks_path(params.permit!.merge(sort_priority: 'true', sort_deadline_on: nil, page: nil)) %></th>
       <th><%= t('tasks.form.status') %></th>
       <th><%= t('common.actions') %></th>
     </tr>

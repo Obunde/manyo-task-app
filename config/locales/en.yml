@@ -2,8 +2,19 @@ en:
   global:
     task_list: "Task List"
     new_task: "Register a task"
+    profile: "Account Settings"
+    logout: "Log out"
+    admin: "User list"
+    new_user: "Register a user"
+    login: "Login"
+    sign_up: "Register for an account"
 
   common:
+    name: "Name"
+    email: "Email Address"
+    password: "Password"
+    password_confirmation: "Password (confirmation)"
+    search: "Search"
     back: "Return"
     edit: "edit"
     delete: "delete"
@@ -11,27 +22,94 @@ en:
     actions: "Actions"
     confirm_delete: "Are you sure you want to delete it?"
 
+  sessions:
+    new:
+      title: "Login"
+      email: "Email address"
+      submit: "Login"
+    notice:
+      login_required: "Please log in"
+      logged_in: "I have logged in"
+      logged_out: "logged out"
+      failed_login: "Your email address or password is incorrect"
+
+  users:
+    new:
+      title: "Account registration page"
+      submit: "register"
+    edit:
+      title: "Account edit page"
+      submit: "Update"
+    show:
+      title: "Account details page"
+      name: "Name"
+      email: "Email Address"
+      task_count: "Number of Tasks"
+    notice:
+      created: "I have registered an account"
+      updated: "Your account has been updated"
+      forbidden: "You do not have permission to access."
+      deleted_account: "Your account has been deleted"
+      delete_failed: "Failed to delete account"
+    errors:
+      cannot_delete_last_admin: "Cannot delete because there are no administrators"
+      cannot_demote_last_admin: "Cannot change admin status because there are no administrators"
+
+  admin:
+    users:
+      index:
+        title: "User List Page"
+        new_user: "Register a User"
+        admin_yes: "Yes"
+        admin_no: "No"
+      new:
+        title: "User Registration Page"
+      edit:
+        title: "User Edit Page"
+      show:
+        title: "User Details Page"
+      form:
+        create: "Register"
+        update: "Update"
+      labels:
+        task_count: "Number of RegisteredTasks"
+      notice:
+        created: "You have registered a user"
+        updated: "Updated users"
+        deleted: "You have deleted a user"
+        delete_failed: "Could not delete user"
+        forbidden: "You do not have permission to access."
+
+  activerecord:
+    models:
+      user: "User"
+    attributes:
+      user:
+        name: "Name"
+        email: "Email Address"
+        password: "Password"
+        password_confirmation: "Password (confirmation)"
+        admin: "Administrator rights"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "Please enter your name"
+            email:
+              blank: "Please enter your e-mail address"
+              taken: "This email address is already in use"
+            password:
+              blank: "Please enter your password"
+              too_short: "Please enter the password with at least 6 characters"
+            password_confirmation:
+              blank: "Please enter password (confirmation)"
+              confirmation: "Password (confirmation) and password input do not match"
+
   tasks:
     index:
       title: "Task list page"
       no_tasks: "No tasks found"
-      table_header:
-        title: "Title"
-        content: "Content"
-        created_at: "Creation date and time"
-        deadline: "Expiration date"
-        priority: "Priority"
-        status: "Status"
-
-      status:
-        not_started: "Not started"
-        in_progress: "In progress"
-        completed: "Completed"
-
-      priority:
-        low: "Low"
-        medium: "Medium"
-        high: "High"
 
     new:
       title: "Task registration page"
@@ -67,7 +145,7 @@ en:
       updated: "Tasks have been updated"
       destroyed: "The task has been deleted"
 
-  errors:
-    format: "%{message}"
-    messages:
-      blank: "Please enter %{attribute}"
+  # errors:
+  #   format: "%{message}"
+  #   messages:
+  #     blank: "Please enter %{attribute}"
