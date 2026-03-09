@@ -1,30 +1,49 @@
-<%= form_with(model: task, local: true) do |form| %>
-  <div>
-    <%= form.label :title, t('tasks.form.title') %>
-    <%= form.text_field :title %>
-  </div>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <%= form_with(model: task, local: true) do |form| %>
+      <div class="form-group">
+        <%= form.label :title, t('tasks.form.title') %>
+        <%= form.text_field :title, class: 'form-control' %>
+      </div>
 
-  <div>
-    <%= form.label :content, t('tasks.form.contents') %>
-    <%= form.text_area :content %>
-  </div>
+      <div class="form-group">
+        <%= form.label :content, t('tasks.form.contents') %>
+        <%= form.text_area :content, class: 'form-control', rows: 3 %>
+      </div>
 
-   <div>
-    <%= form.label :deadline_on, t('tasks.form.deadline') %>
-    <%= form.date_field :deadline_on %>
-  </div>
+      <div class="form-group">
+        <%= form.label :deadline_on, t('tasks.form.deadline') %>
+        <%= form.date_field :deadline_on, class: 'form-control' %>
+      </div>
 
-   <div>
-    <%= form.label :priority, t('tasks.form.priority') %>
-    <%= form.select :priority, options_for_select(Task.priorities.keys.map { |key| [t("tasks.priority.#{key}"), key] }, task.priority), {include_blank: true} %>
-  </div>
+      <div class="form-group">
+        <%= form.label :status, t('tasks.form.status') %>
+        <%= form.select :status, options_for_select(Task.statuses.keys.map { |key| [t("tasks.status.#{key}"), key] }, task.status), {include_blank: true}, {class: 'form-control'} %>
+      </div>
 
-   <div>
-    <%= form.label :status, t('tasks.form.status') %>
-    <%= form.select :status, options_for_select(Task.statuses.keys.map { |key| [t("tasks.status.#{key}"), key] }, task.status), {include_blank: true} %>
-  </div>
+      <div class="form-group">
+        <%= form.label :priority, t('tasks.form.priority') %>
+        <%= form.select :priority, options_for_select(Task.priorities.keys.map { |key| [t("tasks.priority.#{key}"), key] }, task.priority), {include_blank: true}, {class: 'form-control'} %>
+      </div>
 
-  <div>
-    <%= form.submit submit_text, id: submit_id %>
+      <div class="form-group">
+        <%= form.label :label_ids, t('tasks.form.labels') %>
+        <div class="p-2 border rounded bg-white">
+          <% current_user.labels.each do |label| %>
+            <div class="form-check">
+              <%= form.check_box :label_ids, { multiple: true, class: 'form-check-input' }, label.id, nil %>
+              <%= form.label "label_ids_#{label.id}", label.name, class: 'form-check-label' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <%# Buttons aligned to the right within the narrow column %>
+      <div class="text-right mt-4">
+        <%= form.submit submit_text, id: submit_id, class: 'btn btn-primary px-4 mb-2' %>
+        <br>
+        <%= link_to t('common.back'), tasks_path, class: 'text-primary' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

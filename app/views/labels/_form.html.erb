@@ -1,0 +1,30 @@
+
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <%= form_with(model: label, local: true) do |form| %>
+      <% if label.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% label.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :name, t("labels.form.name") %>
+        <%= form.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <% if label.persisted? %>
+          <%= form.submit t("labels.edit.submit"), class: 'btn btn-primary px-4' %>
+        <% else %>
+          <%= form.submit t("labels.new.submit"), id: "register", class: 'btn btn-primary px-4' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

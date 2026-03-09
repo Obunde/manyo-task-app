@@ -1,19 +1,45 @@
 <h1><%= t('tasks.index.title') %></h1>
 
-<div>
-  <%= form_with url: tasks_path, method: :get, scope: :search, local: true do |form| %>
-    <%= form.label :title, t('tasks.form.title') %>
-    <%= form.text_field :title %>
+<div class="mb-4">
+  <div class="mb-4">
+    <%= form_with url: tasks_path, method: :get, scope: :search, local: true do |form| %>
+      <div class="row">
+        <%# Status Input Column %>
+        <div class="col-md-2 form-group">
+          <%= form.label :status, t('tasks.form.status') %>
+          <%= form.select :status, options_for_select(Task.statuses.keys.map { |key| [t("tasks.status.#{key}"), key] }, params.dig(:search, :status)), { include_blank: true }, { class: "form-control" } %>
+        </div>
 
-    <%= form.label :status, t('tasks.form.status') %>
-    <%= form.select :status, options_for_select(Task.statuses.keys.map { |key| [t("tasks.status.#{key}"), key] }, params.dig(:search, :status)), include_blank: true %>
+        <%# Title Input Column %>
+        <div class="col-md-4 form-group">
+          <%= form.label :title, t('tasks.form.title') %>
+          <%= form.text_field :title, class: "form-control" %>
+        </div>
 
-    <%= form.submit t('common.search'), id: "search_task" %>
-  <% end %>
+        <%# Labels Input Column %>
+        <div class="col-md-6 form-group">
+          <%= form.label :label_id, t('tasks.form.labels') %>
+          <%= form.collection_select :label_id,
+                                  current_user.labels,
+                                  :id,
+                                  :name,
+                                  { include_blank: true, selected: params[:label_id] },
+                                  { class: "form-control" } %>
+        </div>
+      </div>
+
+      <%# Button Row: Aligned to the bottom right %>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+          <%= form.submit t('common.search'), id: "search_task", class: "btn btn-primary px-5" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<table>
-  <thead>
+<table class="table">
+  <thead >
     <tr>
       <th><%= t('tasks.form.title') %></th>
       <th><%= t('tasks.form.contents') %></th>
@@ -21,7 +47,7 @@
       <th><%= link_to t('tasks.form.deadline'), tasks_path(params.permit!.merge(sort_deadline_on: 'true', sort_priority: nil, page: nil)) %></th>
       <th><%= link_to t('tasks.form.priority'), tasks_path(params.permit!.merge(sort_priority: 'true', sort_deadline_on: nil, page: nil)) %></th>
       <th><%= t('tasks.form.status') %></th>
-      <th><%= t('common.actions') %></th>
+      <th style="width: 200px;"><%= t('common.actions') %></th>
     </tr>
   </thead>
   <tbody>
@@ -34,12 +60,15 @@
         <td class="task-priority"><%= t("tasks.priority.#{task.priority}") %></td>
         <td class="task-status"><%= t("tasks.status.#{task.status}") %></td>
         <td>
-          <%= link_to t('common.show'), task_path(task), class: 'show-task' %> |
-          <%= link_to t('common.edit'), edit_task_path(task), class: 'edit-task' %> |
-          <%= link_to t('common.delete'), task_path(task), method: :delete, data: { confirm: t('common.confirm_delete') }, class: 'destroy-task' %>
+          <%= link_to t('common.show'), task_path(task), class: 'btn btn-info btn-sm show-task' %>
+          <%= link_to t('common.edit'), edit_task_path(task), class: 'btn btn-primary btn-sm edit-task' %>
+          <%= link_to t('common.delete'), task_path(task), method: :delete, data: { confirm: t('common.confirm_delete') }, class: 'btn btn-danger btn-sm destroy-task' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= paginate @tasks %>
+
+<div class="d-flex justify-content-center">
+  <%= paginate @tasks %>
+</div>

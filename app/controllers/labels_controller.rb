@@ -13,7 +13,7 @@ class LabelsController < ApplicationController
   def create
     @label = current_user.labels.new(label_params)
     if @label.save
-      redirect_to labels_path, notice: "I have registered a label"
+      redirect_to labels_path, notice: t("labels.notice.created")
     else
       render :new
     end
@@ -23,7 +23,7 @@ class LabelsController < ApplicationController
 
   def update
     if @label.update(label_params)
-      redirect_to labels_path, notice: "Updated labels"
+      redirect_to labels_path, notice: t("labels.notice.updated")
     else
       render :edit
     end
@@ -31,7 +31,7 @@ class LabelsController < ApplicationController
 
   def destroy
     @label.destroy
-    redirect_to labels_path, notice: "Labels have been removed"
+    redirect_to labels_path, notice: t("labels.notice.destroyed")
   end
 
   private

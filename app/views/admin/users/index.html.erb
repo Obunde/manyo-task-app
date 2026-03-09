@@ -1,7 +1,7 @@
 <h1><%= t("admin.users.index.title") %></h1>
 
-<table>
-  <thead>
+<table class="table">
+  <thead >
     <tr>
       <th><%= User.human_attribute_name(:name) %></th>
       <th><%= User.human_attribute_name(:email) %></th>
@@ -19,10 +19,10 @@
         <td><%= user.admin? ? t("admin.users.index.admin_yes") : t("admin.users.index.admin_no") %></td>
         <td><%= user.tasks.count %></td>
         <td>
-          <%= link_to t("common.show"), admin_user_path(user), class: "show-user" %> |
-          <%= link_to t("common.edit"), edit_admin_user_path(user), class: "edit-user" %> |
+          <%= link_to t("common.show"), admin_user_path(user), class: "btn btn-info btn-sm show-user" %>
+          <%= link_to t("common.edit"), edit_admin_user_path(user), class: "btn btn-primary btn-sm edit-user" %>
           <%= link_to t("common.delete"), admin_user_path(user),
-                class: "destroy-user",
+                class: "btn btn-danger btn-sm destroy-user",
                 method: :delete,
                 data: { confirm: t("common.confirm_delete") } %>
         </td>

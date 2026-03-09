@@ -23,8 +23,12 @@ class Task < ApplicationRecord
   scope :sort_by_priority, -> { reorder(priority: :desc) }
 
   # Search scopes
+  # title
   scope :search_title, ->(title) { where("title LIKE ?", "%#{title}%") }
+  # status
   scope :search_status, ->(status) { where(status: status) }
+  # label  
+  scope :search_label, ->(label_id) { joins(:labels).where(labels: { id: label_id }) }
 
 
   def self.apply_sorting(params)
@@ -43,6 +47,7 @@ class Task < ApplicationRecord
     if params[:search].present?
       results = results.search_title(params[:search][:title]) if params[:search][:title].present?
       results = results.search_status(params[:search][:status]) if params[:search][:status].present?
+      results = results.search_label(params[:search][:label_id]) if params[:search][:label_id].present?
     end
     
     results

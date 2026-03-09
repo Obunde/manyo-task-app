@@ -9,7 +9,12 @@ class TasksController < ApplicationController
                 .apply_sorting(params)
                 .page(params[:page])
                 .per(10)
+    
+    if params[:label_id].present?
+      @tasks = current_user.tasks.joins(:labels).where(labels: { id: params[:label_id] })
+    end
   end
+
 
   # GET /tasks/new
   def new
@@ -58,6 +63,6 @@ class TasksController < ApplicationController
 
   # Only allow trusted parameters
   def task_params
-    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
+    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, label_ids: [])
   end
 end
