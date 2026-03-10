@@ -11,10 +11,11 @@
 </p>
 
 <%# Requirement: Link to edit your account with id="edit-user" %>
-<%= link_to t('common.edit'), edit_user_path(@user), id: "edit-user" %>
+<%= link_to t('common.edit'), edit_user_path(@user), id: "edit-user" class: 'btn btn-primary px-4 m-2' %>
 
 <%# Link to delete account %>
 <%= link_to t("common.delete"), user_path(@user),
                 method: :delete,
                 data: { confirm: t("common.confirm_delete") },
-                id: "delete-account" %>
+                id: "delete-account" 
+                class: 'btn btn-white px-4'%>
