@@ -18,7 +18,7 @@
 
         <%# Labels Input Column %>
         <div class="col-md-6 form-group">
-          <%= form.label :label_id, t('tasks.form.labels') %>
+          <%= form.label :label_id, t('global.labels') %>
           <%= form.collection_select :label_id,
                                   current_user.labels,
                                   :id,

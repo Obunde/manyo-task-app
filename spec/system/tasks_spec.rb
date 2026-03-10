@@ -95,5 +95,24 @@ RSpec.describe 'Task management function', type: :system do
       expect(page).not_to have_content 'second_task'
       expect(page).not_to have_content 'third_task'
     end
+
+    context 'When searching by label' do
+      let!(:label1) { FactoryBot.create(:label, name: 'Urgent', user: user) }
+      let!(:label2) { FactoryBot.create(:label, name: 'Work', user: user) }
+
+      let!(:labelling1) { FactoryBot.create(:labelling, task: task1, label: label1) }
+      let!(:labelling2) { FactoryBot.create(:labelling, task: task2, label: label2) }
+
+      it "All tasks with that label are displayed." do
+        visit tasks_path
+
+        select 'Urgent', from: I18n.t('global.labels')
+        click_button 'search_task'
+
+        expect(page).to have_content 'first_task'
+        expect(page).not_to have_content 'second_task'
+        expect(page).not_to have_content 'third_task'
+      end
+    end
   end
 end
