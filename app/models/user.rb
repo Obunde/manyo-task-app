@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :tasks, dependent: :destroy # Requirement: Delete tasks when user is deleted
+  has_many :labels, dependent: :destroy # Requirement: Delete labels when user is deleted
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }

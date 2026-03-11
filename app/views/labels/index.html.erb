@@ -1,0 +1,34 @@
+<h1><%= t('labels.index.title') %></h1>
+
+<table class="table">
+  <thead >
+    <tr>
+      <th><%= t('labels.form.name') %></th>
+      <th><%= t('labels.index.task_count') %></th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr>
+        <td><%= label.name %></td>
+        <td><%= label.tasks.size %></td>
+
+        <td>
+          <%= link_to t("common.edit"),
+                      edit_label_path(label),
+                      class: 'btn btn-primary btn-sm edit-label' %>
+        </td>
+
+        <td>
+          <%= link_to t("common.delete"),
+                      label_path(label),
+                      method: :delete,
+                      data: { confirm: t("common.confirm_delete") },
+                      class: 'btn btn-danger btn-sm destroy-label' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

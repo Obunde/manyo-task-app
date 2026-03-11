@@ -8,6 +8,8 @@ en:
     new_user: "Register a user"
     login: "Login"
     sign_up: "Register for an account"
+    labels: "Labels"
+    new_label: "Register a label"
 
   common:
     name: "Name"
@@ -144,6 +146,28 @@ en:
       created: "I have registered a task"
       updated: "Tasks have been updated"
       destroyed: "The task has been deleted"
+
+  labels:
+    index:
+      title: "Label list page"
+      no_labels: "No labels found"
+      task_count: "Number of Tasks"
+
+    new:
+      title: "Label registration page"
+      submit: "register"
+
+    edit:
+      title: "Label edit page"
+      submit: "update"
+
+    form:
+      name: "Name"
+
+    notice:
+      created: "I have registered a label"
+      updated: "Labels have been updated"
+      destroyed: "The label has been deleted"
 
   # errors:
   #   format: "%{message}"

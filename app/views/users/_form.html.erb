@@ -1,37 +1,44 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <ul>
-        <% user.errors.values.flatten.each do |message| %>
-          <li><%= message %></li>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <%= form_with(model: user, local: true) do |form| %>
+      <% if user.errors.any? %>
+        <div class="alert alert-danger" id="error_explanation">
+          <ul class="mb-0">
+            <% user.errors.values.flatten.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :name, t('common.name') %>
+        <%= form.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :email, t('common.email') %>
+        <%= form.email_field :email, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :password, t('common.password') %>
+        <%= form.password_field :password, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :password_confirmation, t('common.password_confirmation') %>
+        <%= form.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <% if user.new_record? %>
+          <%= form.submit t('users.new.submit'), id: "create-user", class: 'btn btn-primary px-4' %>
+        <% else %>
+          <%= form.submit t('users.edit.submit'), id: "update-user", class: 'btn btn-primary px-4' %>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, t('common.name') %>
-    <%= form.text_field :name %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= form.label :email, t('common.email') %>
-    <%= form.email_field :email %>
-  </div>
-
-  <div>
-    <%= form.label :password, t('common.password') %>
-    <%= form.password_field :password %>
-  </div>
-
-  <div>
-    <%= form.label :password_confirmation, t('common.password_confirmation') %>
-    <%= form.password_field :password_confirmation %>
-  </div>
-
-  <% if user.new_record? %>
-    <%= form.submit t('users.new.submit'), id: "create-user" %>
-  <% else %>
-    <%= form.submit t('users.edit.submit'), id: "update-user" %>
-  <% end %>
-<% end %>
+</div>

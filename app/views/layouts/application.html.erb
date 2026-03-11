@@ -6,33 +6,52 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <nav>
-      <% if logged_in? %>
-        <% if current_user.admin? %>
-            <%= link_to t('global.admin'), admin_users_path, id: 'users-index' %>
-            <%= link_to t('global.new_user'), new_admin_user_path, id: 'add-user' %>
-        <% end %>
-        <%= link_to t('global.task_list'), tasks_path, id: 'tasks-index' %>
-        <%= link_to t('global.new_task'), new_task_path, id: 'new-task' %>
-        <%= link_to t('global.profile'), user_path(current_user), id: 'account-setting' %> |
-        <%= link_to t('global.logout'), session_path, method: :delete, id: 'sign-out' %> 
-      <% else %>
-        <%= link_to t('global.sign_up'), new_user_path, id: 'sign-up' %> |
-        <%= link_to t('global.login'), new_session_path, id: 'sign-in' %> 
-      <% end %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Manyo Task</a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <% if logged_in? %>
+            <% if current_user.admin? %>
+              <li class="nav-item"><%= link_to t('global.admin'), admin_users_path, id: 'users-index', class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to t('global.new_user'), new_admin_user_path, id: 'add-user', class: 'nav-link' %></li>
+            <% end %>
+            <li class="nav-item"><%= link_to t('global.task_list'), tasks_path, id: 'tasks-index', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to t('global.new_task'), new_task_path, id: 'new-task', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to t('global.labels'), labels_path, id: 'labels-index', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to t('global.new_label'), new_label_path, id: 'new-label', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to t('global.profile'), user_path(current_user), id: 'account-setting', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to t('global.logout'), session_path, method: :delete, id: 'sign-out', class: 'nav-link' %></li>
+          <% else %>
+            <li class="nav-item"><%= link_to t('global.sign_up'), new_user_path, id: 'sign-up', class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to t('global.login'), new_session_path, id: 'sign-in', class: 'nav-link' %></li>
+          <% end %>
+        </ul>
+      </div>
     </nav>
 
-   
-
     <% flash.each do |key, value| %>
-      <div class="<%= key %>"><%= value %></div>
+      <%# Mapping Rails flash keys to Bootstrap alert classes %>
+      <% alert_class = key == 'notice' ? 'success' : 'danger' %>
+      <div class="alert alert-<%= alert_class %> alert-dismissible fade show" role="alert">
+        <%= value %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     <% end %>
 
-    <%= yield %>
+    <div class="container mt-4">
+      <%= yield %>
+    </div>
   </body>
 </html>
